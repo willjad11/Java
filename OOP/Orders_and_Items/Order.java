@@ -45,6 +45,6 @@ class Order {
         for (Item item : this.items ) {
             System.out.print(item.getName() + " - $" + item.getPrice() + "\n");
         }
-        System.out.print("Total: $" + this.getOrderTotal() + "\n");
+        System.out.print("Total: $" + this.getOrderTotal());
     }
 }
