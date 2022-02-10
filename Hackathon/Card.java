@@ -30,7 +30,7 @@ public class Card {
 
     
     public void showCard() {
-        System.out.printf("%s of %s\n", this.name, this.suit);
+        System.out.printf("%s of %s", this.name, this.suit);
     }
 
 
