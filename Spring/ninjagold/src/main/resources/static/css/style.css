@@ -1,0 +1,42 @@
+@charset "ISO-8859-1";
+
+.maincont {
+	display: flex;
+	padding: 25px;
+	align-items: center;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.yourgold {
+	flex-basis: 100%;
+}
+
+.yourgold > p {
+	font-size:x-large;
+	font-weight: bolder;
+}
+
+.box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 30px;
+	width: 200px;
+	border: 2px solid black;
+}
+
+.activities {
+	flex-basis: 100%;
+	margin-top: 50px;
+} 
+
+.log {
+	flex-basis: 100%;
+	height: 150px;
+	overflow-y: scroll;
+	border: 2px solid black;
+	padding: 15px;
+	margin-top: 30px;
+}
