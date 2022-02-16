@@ -36,6 +36,7 @@ public class NinjagoldController {
 	    @RequestParam(value="casino", required = false) boolean casino) {
 			Random rand = new Random();
 			java.util.Date date = new java.util.Date();
+			@SuppressWarnings("unchecked")
 			ArrayList<String> messages = (ArrayList<String>) session.getAttribute("messages");
 			if (farm) {
 				Integer randomGold = 10 + rand.nextInt((20 - 10) + 1);
