@@ -1,4 +1,4 @@
-package com.jaden.booksapi.models;
+package com.jaden.expenses.models;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -16,27 +16,27 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="books")
-public class Book {
+@Table(name="expenses")
+public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
 	@NotNull
-    @Size(min = 5, max = 200, message = "Title must be between 5 - 200 characters.")
-    private String title;
+    @Size(min = 1, max = 200, message = "Expense name must be between 1 - 200 characters.")
+    private String name;
 
+    @NotNull
+    @Size(min = 1, max = 200, message = "Vendor must be between 1 - 200 characters.")
+    private String vendor;
+    
+    @NotNull
+    @Min(value=1, message = "Must be at least 1 dollar.")
+    private Integer amount;
+    
     @NotNull
     @Size(min = 5, max = 200, message = "Description must be between 5 - 200 characters.")
     private String description;
-    
-    @NotNull
-    @Size(min = 3, max = 40, message = "Language must be between 3 - 40 characters.")
-    private String language;
-    
-    @NotNull
-    @Min(value=100, message = "Must be at least 100 pages.")
-    private Integer numberOfPages;
     
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -45,14 +45,14 @@ public class Book {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
     
-    public Book() {
+    public Expense() {
     }
     
-    public Book(String title, String desc, String lang, int pages) {
-        this.title = title;
-        this.description = desc;
-        this.language = lang;
-        this.numberOfPages = pages;
+    public Expense(String name, String vendor, int amount, String description) {
+        this.name = name;
+        this.vendor = vendor;
+        this.amount = amount;
+        this.description = description;
     }
     
     @PrePersist
@@ -73,12 +73,12 @@ public class Book {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -89,20 +89,20 @@ public class Book {
 		this.description = description;
 	}
 
-	public String getLanguage() {
-		return language;
+	public String getVendor() {
+		return vendor;
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
 	}
 
-	public Integer getNumberOfPages() {
-		return numberOfPages;
+	public Integer getAmount() {
+		return amount;
 	}
 
-	public void setNumberOfPages(Integer numberOfPages) {
-		this.numberOfPages = numberOfPages;
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 
 	public Date getUpdatedAt() {

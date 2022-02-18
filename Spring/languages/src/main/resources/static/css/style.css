@@ -16,27 +16,45 @@ tr:nth-child(even) {
 	background-color: #dddddd;
 }
 
-.bookForm {
+.languageForm {
 	margin: 25px auto;
 	display: flex;
 	flex-direction: column;
 	width: 200px;
 }
 
-.bookForm > h1 {
+.languageForm > h1 {
 	margin: 0px auto;
 }
 
-.bookForm > input, .bookForm > textarea {
+.languageForm > input, .languageForm > textarea {
 	margin: 0px auto;
 	margin-bottom: 20px;
 }
 
-.bookForm > p {
+.languageForm > p {
 	display: flex;
 	flex-direction: column;
 }
 
 .error {
 	color: red;
+}
+
+.actions {
+	display: flex;
+}
+
+.actions > form {
+	margin-left: 15px;
+}
+
+.buttons {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.buttons > form {
+	margin-left: 20px;
 }

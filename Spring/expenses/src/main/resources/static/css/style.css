@@ -16,27 +16,35 @@ tr:nth-child(even) {
 	background-color: #dddddd;
 }
 
-.bookForm {
+.expenseForm {
 	margin: 25px auto;
 	display: flex;
 	flex-direction: column;
 	width: 200px;
 }
 
-.bookForm > h1 {
+.expenseForm > h1 {
 	margin: 0px auto;
 }
 
-.bookForm > input, .bookForm > textarea {
+.expenseForm > input, .expenseForm > textarea {
 	margin: 0px auto;
 	margin-bottom: 20px;
 }
 
-.bookForm > p {
+.expenseForm > p {
 	display: flex;
 	flex-direction: column;
 }
 
 .error {
 	color: red;
+}
+
+.actions {
+	display: flex;
+}
+
+.actions > form {
+	margin-left: 15px;
 }

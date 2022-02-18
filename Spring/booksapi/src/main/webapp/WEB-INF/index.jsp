@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/css/style.css">
-<title>Insert title here</title>
+<title>Book Form</title>
 </head>
 <body>
 	<c:choose>
@@ -31,5 +32,6 @@
 	    	<h4>No books in database.</h4>
 	  	</c:otherwise>
   	</c:choose>
+  	<a href="/books/new">Create a book</a>
 </body>
 </html>

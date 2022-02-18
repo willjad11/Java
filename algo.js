@@ -1,19 +1,83 @@
-class Node {
-    constructor(data) {
-        this.data = data;
-        this.next = null;
+// === CLASSES ===
+
+// Stack
+// LAST IN, FIRST OUT
+class slStack {
+    constructor() {
+        this.top = null; // this.head, this.end
+        this.length = 0;
+    }
+
+    // return a copy of the current stack, in the same order
+    // you may not linearly traverse
+    // you must return the current stack back to it's original order
+    copy() {
+        let stackCopy = new slStack();
+        let tempStack = new slStack();
+        while (this.top) {
+            tempStack.push(this.pop());
+        }
+        while (tempStack.top) {
+            let tempNode = tempStack.pop();
+            stackCopy.push(tempNode);
+            this.push(tempNode);
+        }
+        return stackCopy;
+    }
+
+    // reverse the order of the current stack
+    // you may not linearly traverse
+    // use only stacks and queues as additional storage
+    reverse() {
+        let newQueue = new Queue();
+        while (this.top) {
+            newQueue.enqueue(this.pop());
+        }
+        while (!newQueue.isEmpty()) {
+            this.push(newQueue.dequeue());
+        }
+        return this;
+    }
+
+    // add to top
+    push(newNode) {
+        if (this.top === null) {
+            this.top = newNode;
+        } else {
+            newNode.next = this.top;
+            this.top = newNode;
+        }
+        this.length++;
+    }
+
+    // remove from top
+    pop() {
+        if (this.top === null) return null;
+
+        const removed = this.top; // store previous top
+        this.top = this.top.next; // move top pointer
+        removed.next = null; // remove pointer from stored node
+        this.length--; // decrement length
+
+        return removed; // return the node
+    }
+
+    // aka check top
+    peek() {
+        return this.top;
+    }
+
+    // check if empty
+    isEmpty() {
+        return this.top === null;
+    }    // length getter
+    getLength() {
+        return this.length;
     }
 }
 
 // Queue
-// FIFO (First in, first out)
-
-// - enqueue
-// - dequeue
-// - peek
-// - isEmpty
-// - count
-
+// FIRST IN, FIRST OUT
 class Queue {
     constructor() {
         this.front = null; // sometimes called head "front of the line"
@@ -21,68 +85,161 @@ class Queue {
         this.length = 0;
     }
 
-    // add nodes to the back of the queue
     enqueue(node) {
-        if (!this.back) {
-            this.front = node;
+        if (this.back === null) { // if back is null, list is empty
             this.back = node;
-            this.length += 1;
-        }
-        else {
+            this.front = node;
+        } else { // otherwise add to back
             this.back.next = node;
             this.back = node;
-            this.length += 1
         }
+        this.length++;
     }
 
     // remove from the front
     dequeue() {
-        var temp = this.front;
-        this.front = this.front.next;
-        temp.next = null;
-        this.length -= 1;
-        return temp;
+        if (this.front === null) {
+            return null; // if empty return nothing
+        };
+        if (this.front === this.back) {
+            this.back = null;
+        };
+        let node = this.front;
+        this.front = node.next;
+        node.next = null;
+        this.length--;
+        return node;
     }
 
     // check the front of the queue
     peek() {
-        return this.front ? this.front.data : this.front;
+        // return this.front ? this.front.data : this.front;
+        return this.front;
     }
 
-
-
-    // return true / false if queue is empty
+    // return if empty
     isEmpty() {
-        return this.front === null
+        return this.front === null;
     }
 
     // return length
     count() {
         return this.length;
     }
-
-
 }
 
-myQueue = new Queue();
-myQueue.enqueue(new Node(77))
-myQueue.enqueue(new Node(88))
-myQueue.enqueue(new Node(99))
-// console.log(myQueue)
-// console.log(myQueue.count());
-// NINJA BONUS:
-// print every value in the queue
-// you may only use one queue or stack for additional storage
-// return the queue back to it's original order when you are done
-// you are not allowed to linearly traverse the queue
-// only use public methods enqueue(), dequeue(), peek(), isEmpty(), and count()
-function readQueue(queue) {
-    newQueue = new Queue();
-    while (queue.front) {
-        console.log(queue.front.data);
-        newQueue.enqueue(queue.dequeue());
+// Node
+class Node {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
     }
-    return newQueue;
 }
 
-readQueue(myQueue);
+// === HELPER FUNCTIONS ===
+function isStackSorted(stack) {
+    var tempStack = new slStack();
+    var sorted = true;
+
+    while (!stack.isEmpty()) {
+        var tempNode = stack.pop();
+        if (tempStack.isEmpty() || tempStack.peek().data <= tempNode.data) {
+            tempStack.push(tempNode);
+        } else {
+            sorted = false;
+            tempStack.push(tempNode);
+            break;
+        }
+    }
+
+    while (!tempStack.isEmpty()) {
+        stack.push(tempStack.pop());
+    }
+
+    return sorted;
+}
+
+function isPalindrome(queue) {
+    let temp = new Queue();
+    let reverseString = ""; // d -> "abc"
+    let normalString = ""; // "abc" <- d
+
+    while (!queue.isEmpty()) {
+        let node = queue.dequeue();
+        reverseString = node.data + reverseString;
+        normalString += node.data;
+        temp.enqueue(node);
+    }
+
+    while (!temp.isEmpty()) {
+        queue.enqueue(temp.dequeue());
+    }
+
+    console.log(normalString);
+    console.log(reverseString);
+
+    return reverseString === normalString;
+}
+
+function readQueue(queue) {
+    var tempQueue = new Queue();
+
+    while (!queue.isEmpty()) {
+        var tempNode = queue.dequeue();
+        console.log(tempNode.data);
+        tempQueue.enqueue(tempNode);
+    }
+
+    while (!tempQueue.isEmpty()) {
+        queue.enqueue(tempQueue.dequeue());
+    }
+
+    return queue;
+}
+
+function readQueue2(queue) {
+    var length = queue.count();
+
+    while (length) {
+        var node = queue.dequeue();
+        console.log(node.data);
+        queue.enqueue(node);
+        length--;
+    }
+}
+
+function countStack(stack) {
+    let newStack = new slStack();
+
+    let count = 0;
+
+    while (!stack.isEmpty()) {
+        let node = stack.pop();
+        newStack.push(node);
+        count++;
+    }
+
+    while (!newStack.isEmpty()) {
+        stack.push(newStack.pop());
+    }
+
+    return count;
+};
+
+// 1. instantiate a stack
+// 2. add a few nodes to the stack
+// call myStack.copy()
+// call myStack.reverse()
+
+var myStack = new slStack()
+myStack.push(new Node(220))
+myStack.push(new Node(133))
+myStack.push(new Node(44))
+myStack.push(new Node(15))
+
+// let reverse = myStack.reverse();
+let copy = myStack.copy();
+console.log("copy", copy);
+
+myStack.reverse();
+console.log("reverse", myStack);

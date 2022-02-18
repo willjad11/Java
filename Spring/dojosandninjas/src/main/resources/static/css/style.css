@@ -1,0 +1,83 @@
+@charset "ISO-8859-1";
+
+table {
+	margin: 0px auto;
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 50%;
+	table-layout: fixed;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+.showDojoTable {
+	width: 250px !important;
+}
+
+.indexTitle, .indexCreate, .back {
+	text-align: center;
+}
+
+.ninja {
+	display:inline;
+}
+
+.actions > form {
+	margin-left: 15px;
+	display: inline-block;
+}
+
+.deleteButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-family: arial, sans-serif;
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.showCont, .createCont, .editCont {
+	margin: 0px auto;
+	border: 3px solid black;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	padding: 30px;
+}
+
+.showAction {
+	margin-top: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100px;
+}
+
+.editDelete {
+	margin: 0px auto;
+	margin-top: 30px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+}
+
+.roster {
+	overflow-wrap: anywhere;
+}
+
+.error {
+	color: red;
+}
