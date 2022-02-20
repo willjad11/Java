@@ -45,8 +45,8 @@
    			</c:otherwise>
    		</c:choose>
 		<div class="showAction">
-			<a href="/dojos/<c:out value="${dojo.id}"/>/edit">Edit</a>
-			<form action="/dojos/<c:out value="${dojo.id}"/>" method="post">
+			<a href="/books/<c:out value="${book.id}"/>/edit">Edit</a>
+			<form action="/books/<c:out value="${book.id}"/>" method="post">
 		    	<input type="hidden" name="_method" value="delete">
 		    	<input type="submit" value="Delete" class="deleteButton">
 			</form>

@@ -1,0 +1,149 @@
+@charset "ISO-8859-1";
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+table {
+	margin: 0px auto;
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 50%;
+	table-layout: fixed;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100px;
+	padding: 0px 35px 35px 35px;
+}
+
+.headerLeft, .headerRight {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.headerLeft > h4, .headerRight > a {
+	margin-top: 15px;
+}
+
+.createCont {
+	margin: 0px auto;
+	display: flex;
+	justify-content: center;
+}
+
+.bookForm > p {
+	display: flex;
+	width: 350px;
+	justify-content: space-between;
+	align-items: center;
+	margin: 15px;
+}
+
+.submit {
+	float: right;
+}
+
+.bookInput {
+	width: 200px;
+}
+
+.error {
+	color: red;
+}
+
+.bookDetailUsername {
+	color: red;
+}
+
+.bookDetailTitle {
+	color: fuchsia;
+}
+
+.bookDetailAuthor {
+	color: green;
+}
+
+.bookDetail {
+	width: 25%;
+	margin: 25px;
+}
+
+.bookDetail > h2 {
+	margin: 10px;
+}
+
+.bookDetail > hr {
+	margin: 10px 0px 10px 0px;
+}
+
+.bookDetail > a {
+	float: right;
+}
+
+.deleteButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  font-family: arial, sans-serif;
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bookActions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mainCont {
+	margin: 50px auto;
+	width: fit-content;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.header {
+	flex-basis: 100%;
+	margin-bottom: 50px;
+}
+
+.registerCont, .loginCont {
+	text-align: center;
+	padding: 25px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+}
+
+.loginButton {
+	margin-top: 15px;
+}
+
+.borrowingBooks {
+	margin-top: 25px;
+	text-align: center;
+}
+
+.borrowButton {
+	margin: 0px auto;
+}

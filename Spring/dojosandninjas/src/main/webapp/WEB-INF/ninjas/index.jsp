@@ -32,9 +32,16 @@
 		    				<c:out value="${ninja.age}"/>
 		    			</td>
 		    			<td>
-		    				<a href="/dojos/<c:out value="${ninja.dojo.id}"/>">
-		    					<c:out value="${ninja.dojo.name}"/>
-		    				</a>
+		    				<c:choose>
+			    				<c:when test="${ninja.dojo != null}">
+				    				<a href="/dojos/<c:out value="${ninja.dojo.id}"/>">
+				    					<c:out value="${ninja.dojo.name}"/>
+				    				</a>
+				    			</c:when>
+				    			<c:otherwise>
+							    	<i>No assigned Dojo.</i>
+							  	</c:otherwise>
+						  	</c:choose>
 		    			</td>
 		    			<td class="actions">
 		    				<a href="/ninjas/<c:out value="${ninja.id}"/>/edit">Edit</a>

@@ -12,5 +12,4 @@ public interface NinjaRepository extends CrudRepository<Ninja, Long>{
 
     List<Ninja> findAll();
 
-    List<Ninja> findByDojoContaining(Long Id);
 }

@@ -49,7 +49,6 @@ public class DojoService {
 	    	Dojo newDojo = optionalDojo.get();
 	    	newDojo.setName(dojo.getName());
 	    	newDojo.setLocation(dojo.getLocation());
-	    	newDojo.setNinjas(dojo.getNinjas());
 	    	return dojoRepository.save(newDojo);
 	    }
 		else {

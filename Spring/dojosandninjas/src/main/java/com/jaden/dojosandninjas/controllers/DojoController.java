@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jaden.dojosandninjas.models.Dojo;
+import com.jaden.dojosandninjas.models.Ninja;
 import com.jaden.dojosandninjas.services.DojoService;
 
 @Controller
@@ -54,6 +55,13 @@ public class DojoController {
     
     @DeleteMapping("/dojos/{id}")
     public String destroy(@PathVariable("id") Long id) {
+    	Dojo dojo = dojoService.findDojo(id);
+    	if (dojo.getNinjas().size() != 0) {
+    		for (Ninja ninja : dojo.getNinjas()) {
+    			ninja.setDojo(null);
+    		}
+    	}
+    	dojo.setNinjas(null);
     	dojoService.deleteDojo(id);
         return "redirect:/dojos";
     }
