@@ -17,7 +17,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
     
-    // TO-DO: Write register and login methods!
     public User register(User newUser, BindingResult result) {
     	if(!newUser.getPassword().equals(newUser.getConfirm())) {
     	    result.rejectValue("confirm", "Matches", "The Confirm Password must match Password!");

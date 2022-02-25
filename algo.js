@@ -1,245 +1,122 @@
-// === CLASSES ===
-
-// Stack
-// LAST IN, FIRST OUT
-class slStack {
-    constructor() {
-        this.top = null; // this.head, this.end
-        this.length = 0;
-    }
-
-    // return a copy of the current stack, in the same order
-    // you may not linearly traverse
-    // you must return the current stack back to it's original order
-    copy() {
-        let stackCopy = new slStack();
-        let tempStack = new slStack();
-        while (this.top) {
-            tempStack.push(this.pop());
-        }
-        while (tempStack.top) {
-            let tempNode = tempStack.pop();
-            stackCopy.push(tempNode);
-            this.push(tempNode);
-        }
-        return stackCopy;
-    }
-
-    // reverse the order of the current stack
-    // you may not linearly traverse
-    // use only stacks and queues as additional storage
-    reverse() {
-        let newQueue = new Queue();
-        while (this.top) {
-            newQueue.enqueue(this.pop());
-        }
-        while (!newQueue.isEmpty()) {
-            this.push(newQueue.dequeue());
-        }
-        return this;
-    }
-
-    // add to top
-    push(newNode) {
-        if (this.top === null) {
-            this.top = newNode;
-        } else {
-            newNode.next = this.top;
-            this.top = newNode;
-        }
-        this.length++;
-    }
-
-    // remove from top
-    pop() {
-        if (this.top === null) return null;
-
-        const removed = this.top; // store previous top
-        this.top = this.top.next; // move top pointer
-        removed.next = null; // remove pointer from stored node
-        this.length--; // decrement length
-
-        return removed; // return the node
-    }
-
-    // aka check top
-    peek() {
-        return this.top;
-    }
-
-    // check if empty
-    isEmpty() {
-        return this.top === null;
-    }    // length getter
-    getLength() {
-        return this.length;
-    }
-}
-
-// Queue
-// FIRST IN, FIRST OUT
-class Queue {
-    constructor() {
-        this.front = null; // sometimes called head "front of the line"
-        this.back = null; // sometimes called rear or tail "back of the line"
-        this.length = 0;
-    }
-
-    enqueue(node) {
-        if (this.back === null) { // if back is null, list is empty
-            this.back = node;
-            this.front = node;
-        } else { // otherwise add to back
-            this.back.next = node;
-            this.back = node;
-        }
-        this.length++;
-    }
-
-    // remove from the front
-    dequeue() {
-        if (this.front === null) {
-            return null; // if empty return nothing
-        };
-        if (this.front === this.back) {
-            this.back = null;
-        };
-        let node = this.front;
-        this.front = node.next;
-        node.next = null;
-        this.length--;
-        return node;
-    }
-
-    // check the front of the queue
-    peek() {
-        // return this.front ? this.front.data : this.front;
-        return this.front;
-    }
-
-    // return if empty
-    isEmpty() {
-        return this.front === null;
-    }
-
-    // return length
-    count() {
-        return this.length;
-    }
-}
-
-// Node
-class Node {
+// DLLNodes have a .next and .prev
+class DLLNode {
     constructor(data) {
         this.data = data;
+        this.prev = null;
         this.next = null;
     }
 }
 
-// === HELPER FUNCTIONS ===
-function isStackSorted(stack) {
-    var tempStack = new slStack();
-    var sorted = true;
+// DLLists have both a .head and .tail pointer
+class DLList {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+    }
 
-    while (!stack.isEmpty()) {
-        var tempNode = stack.pop();
-        if (tempStack.isEmpty() || tempStack.peek().data <= tempNode.data) {
-            tempStack.push(tempNode);
+    // == Main Methods ==
+
+    // add node before target
+    // target is the value of a node in the list
+    // consider the edge case where you may have to move the head
+    // consider the edge case where you do not find the target
+    prepend(target, node) {
+        let runner = this.head;
+        if (this.head && target === this.head.data) {
+            node.next = this.head;
+            this.head.prev = node;
+            this.head = node;
+            return true;
+        }
+        while (runner) {
+            if (runner.data === target) {
+                node.prev = runner.prev;
+                runner.prev.next = node;
+                runner.prev = node;
+                node.next = runner;
+                return true;
+            }
+            runner = runner.next;
+        }
+        return false;
+    }
+
+    // return true or false if a node exists with data === val
+    exists(val) {
+        let runnerFront = this.head;
+        let runnerBack = this.tail;
+        while (runnerFront != runnerBack) {
+            if (runnerFront.data === val || runnerBack.data === val) {
+                return true;
+            }
+            runnerFront = runnerFront.next;
+            runnerBack = runnerBack.prev;
+        }
+        return false;
+    }
+
+    // push to head
+    addHead(node) {
+        if (!this.head) { // empty list
+            this.head = node;
+            this.tail = node;
         } else {
-            sorted = false;
-            tempStack.push(tempNode);
-            break;
+            this.head.prev = node;
+            node.next = this.head;
+            this.head = node;
         }
     }
 
-    while (!tempStack.isEmpty()) {
-        stack.push(tempStack.pop());
+    // pop from tail
+    removeTail() {
+        if (this.head == null) return; // empty list
+        if (this.head === this.tail) { // one node
+            var temp = this.tail; // set a temp
+            this.head = null; // disconnect the head
+            this.tail = null; // disconnect the tail
+            return temp;
+        }
+        var temp = this.tail; // set a temp
+        this.tail = tail.prev; // move the tail back
+        this.tail.next = null; // null out the new tail's next
+        temp.prev = null; // null out the temp's prev
+        return temp;
     }
 
-    return sorted;
+    print() {
+        let runner = this.head;
+        while (runner) {
+            console.log(runner.data)
+            runner = runner.next;
+        }
+    }
+
+    // return is empty
+    isEmpty() {
+        return this.head === null;
+    }
+
+    // == Bonus Methods, just inverted versions of the first set ==
+
+    // push to tail
+    addTail(node) { }
+
+    // pop from head
+    removeHead() { }
 }
 
-function isPalindrome(queue) {
-    let temp = new Queue();
-    let reverseString = ""; // d -> "abc"
-    let normalString = ""; // "abc" <- d
+// instantiate the DLL
+// add a few nodes
+// test!
 
-    while (!queue.isEmpty()) {
-        let node = queue.dequeue();
-        reverseString = node.data + reverseString;
-        normalString += node.data;
-        temp.enqueue(node);
-    }
+let myDLL = new DLList();
+let newDLL = new DLList();
 
-    while (!temp.isEmpty()) {
-        queue.enqueue(temp.dequeue());
-    }
+myDLL.addHead(new DLLNode(5));
+myDLL.addHead(new DLLNode(4));
+myDLL.addHead(new DLLNode(3));
+myDLL.addHead(new DLLNode(2));
+myDLL.addHead(new DLLNode(1));
 
-    console.log(normalString);
-    console.log(reverseString);
-
-    return reverseString === normalString;
-}
-
-function readQueue(queue) {
-    var tempQueue = new Queue();
-
-    while (!queue.isEmpty()) {
-        var tempNode = queue.dequeue();
-        console.log(tempNode.data);
-        tempQueue.enqueue(tempNode);
-    }
-
-    while (!tempQueue.isEmpty()) {
-        queue.enqueue(tempQueue.dequeue());
-    }
-
-    return queue;
-}
-
-function readQueue2(queue) {
-    var length = queue.count();
-
-    while (length) {
-        var node = queue.dequeue();
-        console.log(node.data);
-        queue.enqueue(node);
-        length--;
-    }
-}
-
-function countStack(stack) {
-    let newStack = new slStack();
-
-    let count = 0;
-
-    while (!stack.isEmpty()) {
-        let node = stack.pop();
-        newStack.push(node);
-        count++;
-    }
-
-    while (!newStack.isEmpty()) {
-        stack.push(newStack.pop());
-    }
-
-    return count;
-};
-
-// 1. instantiate a stack
-// 2. add a few nodes to the stack
-// call myStack.copy()
-// call myStack.reverse()
-
-var myStack = new slStack()
-myStack.push(new Node(220))
-myStack.push(new Node(133))
-myStack.push(new Node(44))
-myStack.push(new Node(15))
-
-// let reverse = myStack.reverse();
-let copy = myStack.copy();
-console.log("copy", copy);
-
-myStack.reverse();
-console.log("reverse", myStack);
+myDLL.prepend(3, new DLLNode(8000));
+myDLL.print();

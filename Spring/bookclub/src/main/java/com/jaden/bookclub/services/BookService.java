@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jaden.bookclub.models.Book;
@@ -12,11 +13,9 @@ import com.jaden.bookclub.repositories.BookRepository;
 
 @Service
 public class BookService {
-	private final BookRepository bookRepository;
  
-	public BookService(BookRepository bookRepository) {
-		this.bookRepository = bookRepository;
-	}
+	@Autowired
+    private BookRepository bookRepository;
 
 	public List<Book> allBooks() {
 		return bookRepository.findAll();

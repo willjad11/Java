@@ -1,5 +1,11 @@
 package com.jaden.bookclub.controllers;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaden.bookclub.models.Book;
 import com.jaden.bookclub.repositories.UserRepository;
 import com.jaden.bookclub.services.BookService;
@@ -26,6 +34,7 @@ public class BookController {
 	
 	@Autowired
 	private BookService bookService;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -38,6 +47,31 @@ public class BookController {
 		model.addAttribute("borrowList", userRepository.findById((Long) session.getAttribute("userId")).get().getBorrowedBooks());
 		model.addAttribute("bookList", bookService.allBooks());
 		return "/books/books.jsp";
+    }
+	
+	@GetMapping("/api")
+    public String api(Model model) {
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?tags=vegetarian%2Cdessert&number=1"))
+				.header("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+				.header("x-rapidapi-key", "140fb4e18bmsh1b98787774bb473p16915fjsn7771c9dbb632")
+				.method("GET", HttpRequest.BodyPublishers.noBody())
+				.build();
+		HttpResponse<String> response;
+		try {
+			response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode node = mapper.readTree(response.body()).get("recipes");
+			for (JsonNode jsonNode : node) {
+				System.out.println(jsonNode.get("instructions"));
+			}
+			model.addAttribute("api", node);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return "api.jsp";
     }
 	
 	@GetMapping("/books/new")
@@ -102,7 +136,8 @@ public class BookController {
 		}
         if (result.hasErrors()) {
             return "/books/editBook.jsp";
-        } else {
+        }
+        else {
         	bookService.updateBook(book);
             return "redirect:/books";
         }

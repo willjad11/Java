@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jaden.bookclub.models.LoginUser;
 import com.jaden.bookclub.models.User;
-import com.jaden.bookclub.repositories.UserRepository;
 import com.jaden.bookclub.services.UserService;
 
 @Controller
@@ -21,29 +20,16 @@ public class HomeController {
  
 	 @Autowired
 	 private UserService userServ;
-	 @Autowired
-	 private UserRepository userRepo;
  
 	 @GetMapping("/")
 	 public String index(HttpSession session, Model model) {
 		 
 		 if (session.getAttribute("userId") != null) {
-			 return "redirect:/home";
+			 return "redirect:/books";
 		 }
-	     // Bind empty User and LoginUser objects to the JSP
-	     // to capture the form input
 	     model.addAttribute("newUser", new User());
 	     model.addAttribute("newLogin", new LoginUser());
 	     return "index.jsp";
-	 }
-	 
-	 @GetMapping("/home")
-	 public String home(HttpSession session, Model model) {
-		 if (session.getAttribute("userId") == null) {
-			 return "redirect:/";
-		 }
-	     model.addAttribute("user", userRepo.findById((Long) session.getAttribute("userId")).get());
-	     return "home.jsp";
 	 }
 	 
 	 @GetMapping("/logout")

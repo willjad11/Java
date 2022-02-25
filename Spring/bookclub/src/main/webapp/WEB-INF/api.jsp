@@ -8,12 +8,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/css/style.css">
-<title>Logged In</title>
+<title>Insert title here</title>
 </head>
 <body>
-	Hello, <c:out value="${user.userName}"/>
-	<form action="/logout">
-	    <input type="submit" value="Logout" class="logoutButton">
-	</form>
+	<c:out value="${api}" />
 </body>
 </html>
