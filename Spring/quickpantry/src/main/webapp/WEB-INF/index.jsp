@@ -14,7 +14,7 @@
 	<div class="header">
 		<div class="headerCenter">
 			<h1>QuickPantry</h1>
-			<p class="indexHeader">A "whats in your fridge" recipe finder!</p>
+			<p class="indexHeader">A "whats in your kitchen" recipe finder!</p>
 		</div>
 	</div>
 	<div class="mainCont">

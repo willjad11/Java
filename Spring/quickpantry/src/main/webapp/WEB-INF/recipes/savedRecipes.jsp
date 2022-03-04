@@ -75,7 +75,11 @@
 					<div class="content">
 						<div class="categoryControls">
 							<div class="categoryControlButtons">
-								<button type="button" onClick="displayAddRecipe('${category.name}')" id="categoryControlsButtonAddRecipe${category.name}">Add Recipe</button>
+								<c:choose>
+									<c:when test="${favoriteRecipeList.size() != 0}">
+										<button type="button" onClick="displayAddRecipe('${category.name}')" id="categoryControlsButtonAddRecipe${category.name}">Add Recipe</button>
+									</c:when>
+								</c:choose>
 								<c:choose>
 									<c:when test="${category.favoriteRecipes.size() != 0}">
 										<button type="button" onClick="displayRemoveRecipe('${category.name}')" id="categoryControlsButtonRemoveRecipe${category.name}">Remove Recipe</button>
