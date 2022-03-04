@@ -144,7 +144,7 @@ public class RecipeController {
 		    		for (JsonNode nutrient : recipeResponse.get("nutrition").get("nutrients")) {
 		    			Nutrient tempNutrient = new Nutrient();
 		    			tempNutrient.setName(nutrient.get("name").asText());
-		    			tempNutrient.setAmount(nutrient.get("amount").asInt());
+		    			tempNutrient.setAmount(nutrient.get("amount").asDouble());
 		    			tempNutrient.setUnit(nutrient.get("unit").asText());
 		    			tempNutrient.setPercentOfDailyNeeds(nutrient.get("percentOfDailyNeeds").asDouble());
 		    			nutrientList.add(tempNutrient);
