@@ -64,7 +64,7 @@ public class RecipeController {
 			for (Ingredient ingredient : userIngredients) {
 				URIConstructor += ingredient.getName() + "%2C%20";
 			}
-		
+			URIConstructor = URIConstructor.replaceAll("\\s","%20");
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?&number=8&ignorePantry=false&ranking=2&ingredients=" + URIConstructor))
 					.header("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")

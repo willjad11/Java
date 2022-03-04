@@ -24,6 +24,14 @@ public class IngredientService {
 
 	public Ingredient createIngredient(Ingredient ingredient, BindingResult result) {
 		
+		if (ingredient.getName().length() - ingredient.getName().replaceAll(" ", "").length() > 1) {
+    	    result.rejectValue("name", "Matches", "Invalid ingredient!");
+    	}
+		
+		if (!ingredient.getName().replaceAll(" ", "").matches("[a-zA-Z]+")) {
+			result.rejectValue("name", "Matches", "Invalid ingredient!");
+		}
+		
 		if (ingredientRepository.findByName(ingredient.getName()).isPresent()) {
     	    result.rejectValue("name", "Matches", "You already submitted that ingredient!");
     	}
