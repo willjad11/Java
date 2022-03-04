@@ -32,16 +32,15 @@ function cancelAddCategory() {
 function displayAddRecipe(name) {
 	document.getElementById("categoryControlAddRecipeBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
-	document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none";
+	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
 	document.getElementById("categoryControlsButtonDeleteCategory" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRenameCategory" + name).style.display = "none";
-	console.log("test")
 }
 
 function displayRemoveRecipe(name) {
 	document.getElementById("categoryControlRemoveRecipeBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
-	document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none";
+	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
 	document.getElementById("categoryControlsButtonDeleteCategory" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRenameCategory" + name).style.display = "none";
 }
@@ -49,7 +48,7 @@ function displayRemoveRecipe(name) {
 function displayRenameCategory(name) {
 	document.getElementById("categoryControlRenameCategoryBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
-	document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none";
+	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
 	document.getElementById("categoryControlsButtonDeleteCategory" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRenameCategory" + name).style.display = "none";
 }
@@ -57,18 +56,18 @@ function displayRenameCategory(name) {
 function displayDeleteCategory(name) {
 	document.getElementById("categoryControlDeleteCategoryBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
-	document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none";
+	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
 	document.getElementById("categoryControlsButtonDeleteCategory" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRenameCategory" + name).style.display = "none";
 }
 
 function hideControls(name) {
 	document.getElementById("categoryControlAddRecipeBox" + name).style.display = "none";
-	document.getElementById("categoryControlRemoveRecipeBox" + name).style.display = "none";
+	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
 	document.getElementById("categoryControlRenameCategoryBox" + name).style.display = "none";
 	document.getElementById("categoryControlDeleteCategoryBox" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "";
-	document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "";
+	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "");
 	document.getElementById("categoryControlsButtonDeleteCategory" + name).style.display = "";
 	document.getElementById("categoryControlsButtonRenameCategory" + name).style.display = "";
 }
