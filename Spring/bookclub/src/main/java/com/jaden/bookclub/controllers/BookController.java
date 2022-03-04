@@ -49,31 +49,6 @@ public class BookController {
 		return "/books/books.jsp";
     }
 	
-	@GetMapping("/api")
-    public String api(Model model) {
-		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?tags=vegetarian%2Cdessert&number=1"))
-				.header("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
-				.header("x-rapidapi-key", "140fb4e18bmsh1b98787774bb473p16915fjsn7771c9dbb632")
-				.method("GET", HttpRequest.BodyPublishers.noBody())
-				.build();
-		HttpResponse<String> response;
-		try {
-			response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode node = mapper.readTree(response.body()).get("recipes");
-			for (JsonNode jsonNode : node) {
-				System.out.println(jsonNode.get("instructions"));
-			}
-			model.addAttribute("api", node);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return "api.jsp";
-    }
-	
 	@GetMapping("/books/new")
     public String newbook(@ModelAttribute("book") Book book, Model model, HttpSession session) {
 		if (session.getAttribute("userId") == null) {
