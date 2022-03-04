@@ -270,7 +270,7 @@ tr:nth-child(odd) {
 	text-align: center;
 	padding: 5px;
 	border-radius: 6px;
-	width: fit-content;
+	width: 150px;
 	bottom: 100%;
 	left: 50%;
 	margin-left: -60px;
@@ -486,7 +486,6 @@ tr:nth-child(odd) {
 	flex-direction: column;
 	padding: 0 18px;
 	max-height: 0;
-	height: fit-content;
 	width: 33%;
 	overflow: hidden;
 	transition: max-height 0.2s ease-out;

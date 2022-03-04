@@ -49,7 +49,7 @@
 								<span class="recipeInfo">
 									Used Ingredients:<br>
 									<c:forEach var="usedIngredient" items="${recipe.usedIngredients}">
-										<c:out value="${usedIngredient}"/><br>
+										- <c:out value="${usedIngredient}"/><br>
 									</c:forEach>
 								</span>
 							</div>
@@ -60,7 +60,7 @@
 											<span class="recipeInfo">
 												Unused Ingredients:<br>
 												<c:forEach var="unusedIngredient" items="${recipe.unusedIngredients}">
-													<c:out value="${unusedIngredient}"/><br>
+													- <c:out value="${unusedIngredient}"/><br>
 												</c:forEach>
 											</span>
 										</c:when>
@@ -73,7 +73,7 @@
 										<span class="recipeInfo">
 											Missing Ingredients:<br>
 											<c:forEach var="missedIngredient" items="${recipe.missedIngredients}">
-												<c:out value="${missedIngredient}"/><br>
+												- <c:out value="${missedIngredient}"/><br>
 											</c:forEach>
 										</span>
 									</c:when>
