@@ -124,7 +124,7 @@ class BST {
 
         // if there is no further nodes, return tree
         if (current.right === null) {
-            return current;
+            return current.val;
         }
 
         // else recurse to the right and try again
@@ -132,7 +132,10 @@ class BST {
     }
 
     // iterative
-    getSmallestFromSubtree(runner = this.root) {
+    getSmallestFromSubtree() {
+        // create runner
+        var runner = this.root;
+
         // return if root is null
         if (!runner) return;
 
@@ -141,7 +144,7 @@ class BST {
             runner = runner.left;
         }
         // when the while ends, return runner.val
-        return runner;
+        return runner.val;
     }
 
     // --- HELPER METHOD for printing the BST ---
@@ -161,16 +164,6 @@ class BST {
         this.print(node.left, spaceCnt);
     }
 
-    /* alt tree
-                  root
-              <-- 25 -->
-            /            \
-          15             44 <---
-        /    \         /    \
-      10     22      35     70
-    /   \   /  \    /  \   /  \
-   4    12     24         66  90
-*/
     // - does it exist?
     // AND
     // - is it the root?
@@ -185,74 +178,168 @@ class BST {
     // -- GOAL -> boil down the node to delete into a single leaf => solved!
 
     // findAndDelete
-    delete(val, current = this.root) {
-        if (!current) {
-            return;
+    delete(val, current) {
+        // edge case to set current to root
+        if (current === undefined) {
+            current = this.root;
         }
-        if (current.val == val) {
-            let tempNode = this.getSmallestFromSubtree(this.root.right);
-            tempNode.right = this.root.right;
-            tempNode.left = this.root.left;
-            this.root = tempNode;
-            return this.delete(tempNode.val, this.root.right);
-        }
-        else if (val < current.val) {
-            if (current.left.val == val) {
-                let tempNode1 = this.getSmallestFromSubtree(current.left);
-                let tempNode2 = this.getLargestFromSubtree(current.left);
-                if (tempNode1 === current.left && tempNode2 === current.left) {
-                    let tempNode = current.left;
-                    current.left = null;
-                    return tempNode;
-                }
-                else {
-                    if (current.left.right.val < tempNode1.val) {
-                        tempNode1.left = current.left.right;
-                    }
-                    if (current.left.right.val > tempNode1.val) {
-                        tempNode1.right = current.left.right;
-                    }
-                    if (current.left.left.val < tempNode1.val) {
-                        tempNode1.left = current.left.left;
-                    }
-                    if (current.left.left.val > tempNode1.val) {
-                        tempNode1.right = current.left.left;
-                    }
-                    current.left = tempNode1;
-                    return this.delete(tempNode1.val, current.left);
-                }
+        // check if the node equals current node's value, then this is the node to delete
+        if (val === current.val) {
+            // check to see if node has no child leaf
+            if (!current.left && !current.right) {
+                return null;
             }
-            return this.delete(val, current.left);
-        }
-        else if (val > current.val) {
-            if (current.right.val == val) {
-                let tempNode1 = this.getSmallestFromSubtree(current.right);
-                let tempNode2 = this.getLargestFromSubtree(current.right);
-                if (tempNode1 === current.right && tempNode2 === current.right) {
-                    let tempNode = current.right;
-                    current.right = null;
-                    return tempNode;
-                }
-                else {
-                    if (current.right.right.val < tempNode1.val) {
-                        tempNode1.left = current.right.right;
-                    }
-                    if (current.right.right.val > tempNode1.val) {
-                        tempNode1.right = current.right.right;
-                    }
-                    if (current.right.left.val < tempNode1.val) {
-                        tempNode1.left = current.right.left;
-                    }
-                    if (current.right.left.val > tempNode1.val) {
-                        tempNode1.right = current.right.left;
-                    }
-                    current.right = tempNode1;
-                    return this.delete(tempNode1.val, current.right);
-                }
+            // check to see if node has one child leaf (either side)
+            else if (!current.left) {
+                return current.right;
             }
-            return this.delete(val, current.right);
+            else if (!current.right) {
+                return current.left;
+            } else {
+                // check to see if node has two child leaves and assign temp to smallest value
+                let temp = this.getSmallestFromSubtree(current);
+                // swap current and temp
+                current.val = temp.val;
+                // return the node being deleted
+                return this.delete(temp.val, current.right);
+            }
+            // keep going down the tree (since there are more than one child leaf)
+        } else if (val < current.val) {
+            return this.delete(val, current.left)
+        } else {
+            return this.delete(val, current.right)
+        }
+
+    }
+
+    // * delete
+    // size
+    // height
+
+    /* 
+                      root
+                  <-- 25 -->
+                /            \
+              15             50
+            /    \         /    \
+          10     22      35     70
+        /   \   /  \    /  \   /  \
+       4   12  18      31  44 66  90
+                                    \100
+    */
+
+    // PreOrder (DFS - Depth First Search)
+    // (Root / Parent, Left, Right)
+    // 25, 15, 10, 4, 12, 22, 18, 50, 35, 31, 44, 70, 66, 90
+    // optimal order for rebuilding a BST
+    printPreOrder(current) {
+        if (current === undefined) {
+            current = this.root;
+        }
+
+        if (current) {
+            // read everything, then recurse
+            console.log(current.val);
+            this.printPreOrder(current.left);
+            this.printPreOrder(current.right);
         }
     }
+
+    // InOrder (DFS)
+    // (Left, Root / Parent, Right)
+    // 4, 10, 12, 15, 18, 22, 25, 31, 35, 44, 50, 66, 70, 90
+    // Sorted data!
+    printInOrder(current) {
+        if (current === undefined) {
+            current = this.root;
+        }
+        if (current) {
+            // read everything, then recurse
+            this.printInOrder(current.left);
+            console.log(current.val);
+            this.printInOrder(current.right);
+        }
+    }
+
+    // PostOrder (DFS)
+    // (Left, Right, Root / PArent)
+    // 4, 12, 10, 18, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25
+    // least used
+    printPostOrder(current) {
+        if (current === undefined) {
+            current = this.root;
+        }
+        if (current) {
+            // read everything, then recurse
+            this.printPostOrder(current.left);
+            this.printPostOrder(current.right);
+            console.log(current.val);
+        }
+    }
+
+    // LevelOrder (BFS - Breath first search)
+    // Row-by-row left-right top-down
+    // [25], [15, 50], [10, 22, 35, 70], [4, 12, 18, 31, 44, 66, 90]
+    // don't use recursion
+    // hint: use a Queue!
+    printLevelOrder(current) {
+        if (current === undefined) {
+            current = this.root;
+        }
+
+        class Node {
+            constructor(data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+
+        class Queue {
+            constructor() {
+                this.front = null;
+                this.back = null;
+            }
+
+            enqueue(node) {
+                if (this.back === null) { // if back is null, list is empty
+                    this.back = node;
+                    this.front = node;
+                } else { // otherwise add to back
+                    this.back.next = node;
+                    this.back = node;
+                }
+                this.length++;
+            }
+
+            // remove from the front
+            dequeue() {
+                if (this.front === null) {
+                    return null; // if empty return nothing
+                };
+                if (this.front === this.back) {
+                    this.back = null;
+                };
+                let node = this.front;
+                this.front = node.next;
+                node.next = null;
+                this.length--;
+                return node;
+            }
+
+            // return true / false if queue is empty
+            isEmpty() {
+                return this.front === null
+            }
+        }
+
+        let myQueue = new Queue();
+        let runner1 = current.left;
+        let runner2 = current.right;
+        while (current) {
+            myQueue.enqueue(new Node(current.val));
+
+        }
+    };
 };
 
 // Recursion is:
@@ -261,22 +348,36 @@ class BST {
 // - so that the inputs lead to a 'base case' and end the recursive call
 
 
-//               root
-//          <-- 50 -->
-//         /          \
-//       40           60 <---
-//     /    \        /    \
-//   20     45     55     70
 var myBST = new BST();
+myBST.insert(new BSTNode(25))
+myBST.insert(new BSTNode(15))
 myBST.insert(new BSTNode(50))
-myBST.insert(new BSTNode(40))
-myBST.insert(new BSTNode(60))
-myBST.insert(new BSTNode(20))
-myBST.insert(new BSTNode(45))
-myBST.insert(new BSTNode(55))
+myBST.insert(new BSTNode(10))
+myBST.insert(new BSTNode(22))
+myBST.insert(new BSTNode(35))
 myBST.insert(new BSTNode(70))
-// console.log(myBST);
+myBST.insert(new BSTNode(4))
+myBST.insert(new BSTNode(12))
+myBST.insert(new BSTNode(18))
+myBST.insert(new BSTNode(31))
+myBST.insert(new BSTNode(44))
+myBST.insert(new BSTNode(66))
+myBST.insert(new BSTNode(90))
+console.log(myBST);
+/* BST
+                  root
+              <-- 25 -->
+            /            \
+          15             50
+        /    \         /    \
+      10     22      35     70
+    /   \   /  \    /  \   /  \
+   4   12  18      31  44 66  90
+*/
 myBST.print();
-console.log("*".repeat(30));
-myBST.delete(50);
-myBST.print();
+console.log("********** InOrder **********");
+myBST.printInOrder();
+console.log("********** PostOrder **********");
+myBST.printPostOrder();
+console.log("********** LevelOrder **********");
+myBST.printLevelOrder();

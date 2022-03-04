@@ -30,6 +30,8 @@ function cancelAddCategory() {
 }
 
 function displayAddRecipe(name) {
+	let content = document.getElementById("categoryControlAddRecipeBox" + name).parentElement.parentElement.parentElement;
+	content.style.maxHeight = 200 + "px";
 	document.getElementById("categoryControlAddRecipeBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
@@ -38,6 +40,8 @@ function displayAddRecipe(name) {
 }
 
 function displayRemoveRecipe(name) {
+	let content = document.getElementById("categoryControlAddRecipeBox" + name).parentElement.parentElement.parentElement;
+	content.style.maxHeight = 200 + "px";
 	document.getElementById("categoryControlRemoveRecipeBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
@@ -46,6 +50,8 @@ function displayRemoveRecipe(name) {
 }
 
 function displayRenameCategory(name) {
+	let content = document.getElementById("categoryControlAddRecipeBox" + name).parentElement.parentElement.parentElement;
+	content.style.maxHeight = 200 + "px";
 	document.getElementById("categoryControlRenameCategoryBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
@@ -54,6 +60,8 @@ function displayRenameCategory(name) {
 }
 
 function displayDeleteCategory(name) {
+	let content = document.getElementById("categoryControlAddRecipeBox" + name).parentElement.parentElement.parentElement;
+	content.style.maxHeight = 200 + "px";
 	document.getElementById("categoryControlDeleteCategoryBox" + name).style.display = "";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
@@ -63,7 +71,7 @@ function displayDeleteCategory(name) {
 
 function hideControls(name) {
 	document.getElementById("categoryControlAddRecipeBox" + name).style.display = "none";
-	document.getElementById("categoryControlsButtonRemoveRecipe" + name) != null && (document.getElementById("categoryControlsButtonRemoveRecipe" + name).style.display = "none");
+	document.getElementById("categoryControlRemoveRecipeBox" + name) != null && (document.getElementById("categoryControlRemoveRecipeBox" + name).style.display = "none");
 	document.getElementById("categoryControlRenameCategoryBox" + name).style.display = "none";
 	document.getElementById("categoryControlDeleteCategoryBox" + name).style.display = "none";
 	document.getElementById("categoryControlsButtonAddRecipe" + name).style.display = "";
@@ -81,8 +89,9 @@ for (i = 0; i < coll.length; i++) {
     var content = this.nextElementSibling;
     if (content.style.maxHeight){
       content.style.maxHeight = null;
-    } else {
+    }
+    else {
       content.style.maxHeight = content.scrollHeight + "px";
-    } 
+    }
   });
 }
