@@ -53,7 +53,7 @@
 	</c:choose>
 	<div class="recipeDetailCont">
 		<div class="recipeDetailBox1">
-			<h2>Nutrition (per serving):</h2>
+			<h2>Nutrition:</h2>
 			<hr>
 			<c:forEach var="nutrient" items="${nutrientList}">
 				<div class="nutrientItem">

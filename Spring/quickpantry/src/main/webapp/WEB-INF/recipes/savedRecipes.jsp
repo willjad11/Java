@@ -48,7 +48,7 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<p class="noSavedRecipes">You have no saved recipes yet!</p>
+			<p class="noSavedRecipes">No (unassigned) saved recipes to show!</p>
 		</c:otherwise>
 	</c:choose>
 	<h1 class="savedRecipeTitle">Your Categories:</h1>
